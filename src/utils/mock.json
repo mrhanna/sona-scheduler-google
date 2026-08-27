@@ -1,0 +1,260 @@
+{
+  "instruments": [
+    "saxophone",
+    "flute",
+    "oboe",
+    "bassoon",
+    "clarinet",
+    "trumpet",
+    "trombone",
+    "horn",
+    "tuba",
+    "percussion"
+  ],
+  "mentors": [
+    {
+      "name": "Arthur Pendelton",
+      "email": "apendelton@example.com"
+    },
+    {
+      "name": "Beatrice Vance",
+      "email": "bvance@example.com"
+    },
+    {
+      "name": "Carlos Mendez",
+      "email": "cmendez@example.com"
+    },
+    {
+      "name": "Diana Lin",
+      "email": "dlin@example.com"
+    },
+    {
+      "name": "Evan Brooks",
+      "email": "ebrooks@example.com"
+    }
+  ],
+  "schools": [
+    {
+      "name": "Allegro Middle School",
+      "calendarId": "1"
+    },
+    {
+      "name": "Crescendo High School",
+      "calendarId": "2"
+    },
+    {
+      "name": "Harmony Junior High",
+      "calendarId": "3"
+    },
+    {
+      "name": "Tempo Fine Arts Academy",
+      "calendarId": "4"
+    },
+    {
+      "name": "Rondo Intermediate School",
+      "calendarId": "5"
+    }
+  ],
+  "classes": [
+    {
+      "school": "Allegro Middle School",
+      "name": "6th Grade Woodwinds",
+      "start": "08:00",
+      "end": "08:50",
+      "recurrence": "MWF",
+      "instruments": ["saxophone", "flute", "oboe", "bassoon", "clarinet"]
+    },
+    {
+      "school": "Allegro Middle School",
+      "name": "Beginner Brass",
+      "start": "09:00",
+      "end": "09:50",
+      "recurrence": "MWF",
+      "instruments": ["trumpet", "trombone", "horn", "tuba"]
+    },
+    {
+      "school": "Allegro Middle School",
+      "name": "Cadet Band",
+      "start": "11:15",
+      "end": "12:05",
+      "recurrence": "MTWRF",
+      "instruments": [
+        "saxophone",
+        "flute",
+        "oboe",
+        "bassoon",
+        "clarinet",
+        "trumpet",
+        "trombone",
+        "horn",
+        "tuba",
+        "percussion"
+      ]
+    },
+    {
+      "school": "Allegro Middle School",
+      "name": "Percussion Ensemble",
+      "start": "13:30",
+      "end": "14:20",
+      "recurrence": "TR",
+      "instruments": ["percussion"]
+    },
+    {
+      "school": "Crescendo High School",
+      "name": "Symphonic Woodwinds",
+      "start": "07:45",
+      "end": "09:15",
+      "recurrence": "Odd",
+      "instruments": ["saxophone", "flute", "oboe", "bassoon", "clarinet"]
+    },
+    {
+      "school": "Crescendo High School",
+      "name": "Low Brass & Tuba Lab",
+      "start": "09:30",
+      "end": "11:00",
+      "recurrence": "Even",
+      "instruments": ["trombone", "tuba"]
+    },
+    {
+      "school": "Crescendo High School",
+      "name": "Studio Jazz Ensemble",
+      "start": "12:30",
+      "end": "14:00",
+      "recurrence": "Odd",
+      "instruments": ["saxophone", "trumpet", "trombone", "percussion"]
+    },
+    {
+      "school": "Crescendo High School",
+      "name": "Wind Ensemble",
+      "start": "14:15",
+      "end": "15:45",
+      "recurrence": "Even",
+      "instruments": [
+        "saxophone",
+        "flute",
+        "oboe",
+        "bassoon",
+        "clarinet",
+        "trumpet",
+        "trombone",
+        "horn",
+        "tuba",
+        "percussion"
+      ]
+    },
+    {
+      "school": "Harmony Junior High",
+      "name": "7th Grade Flute & Oboe Masterclass",
+      "start": "08:15",
+      "end": "09:00",
+      "recurrence": "TR",
+      "instruments": ["flute", "oboe"]
+    },
+    {
+      "school": "Harmony Junior High",
+      "name": "JH Concert Band",
+      "start": "10:00",
+      "end": "10:55",
+      "recurrence": "MTWRF",
+      "instruments": [
+        "saxophone",
+        "flute",
+        "oboe",
+        "bassoon",
+        "clarinet",
+        "trumpet",
+        "trombone",
+        "horn",
+        "tuba",
+        "percussion"
+      ]
+    },
+    {
+      "school": "Harmony Junior High",
+      "name": "JH Trumpet & Horn Sectional",
+      "start": "11:45",
+      "end": "12:30",
+      "recurrence": "MW",
+      "instruments": ["trumpet", "horn"]
+    },
+    {
+      "school": "Harmony Junior High",
+      "name": "Junior Saxophone Choir",
+      "start": "14:00",
+      "end": "14:50",
+      "recurrence": "F",
+      "instruments": ["saxophone"]
+    },
+    {
+      "school": "Tempo Fine Arts Academy",
+      "name": "Chamber Reeds",
+      "start": "07:30",
+      "end": "08:30",
+      "recurrence": "MTWR",
+      "instruments": ["saxophone", "oboe", "bassoon", "clarinet"]
+    },
+    {
+      "school": "Tempo Fine Arts Academy",
+      "name": "Brass Choir",
+      "start": "09:45",
+      "end": "10:45",
+      "recurrence": "MWF",
+      "instruments": ["trumpet", "trombone", "horn", "tuba"]
+    },
+    {
+      "school": "Tempo Fine Arts Academy",
+      "name": "Marching Battery & Front Ensemble",
+      "start": "12:45",
+      "end": "14:00",
+      "recurrence": "MTWRF",
+      "instruments": ["percussion"]
+    },
+    {
+      "school": "Tempo Fine Arts Academy",
+      "name": "Improvisation & Small Group Jazz",
+      "start": "14:30",
+      "end": "15:30",
+      "recurrence": "TR",
+      "instruments": ["saxophone", "trumpet", "trombone", "percussion"]
+    },
+    {
+      "school": "Rondo Intermediate School",
+      "name": "5th Grade Starter Band",
+      "start": "08:30",
+      "end": "09:15",
+      "recurrence": "MWF",
+      "instruments": [
+        "saxophone",
+        "flute",
+        "clarinet",
+        "trumpet",
+        "trombone",
+        "percussion"
+      ]
+    },
+    {
+      "school": "Rondo Intermediate School",
+      "name": "Double Reed Workshop",
+      "start": "10:30",
+      "end": "11:15",
+      "recurrence": "TR",
+      "instruments": ["oboe", "bassoon"]
+    },
+    {
+      "school": "Rondo Intermediate School",
+      "name": "Intermediate Brass",
+      "start": "13:00",
+      "end": "13:45",
+      "recurrence": "TR",
+      "instruments": ["trumpet", "trombone", "horn", "tuba"]
+    },
+    {
+      "school": "Rondo Intermediate School",
+      "name": "Intermediate Woodwinds",
+      "start": "14:15",
+      "end": "15:00",
+      "recurrence": "MWF",
+      "instruments": ["saxophone", "flute", "oboe", "bassoon", "clarinet"]
+    }
+  ]
+}

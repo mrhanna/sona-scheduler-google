@@ -1,0 +1,63 @@
+.label {
+  font-weight: bold;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.button {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: normal;
+  border-radius: 0.375rem;
+
+  background-color: transparent;
+  border: 1px solid var(--accent-400, #fea19b);
+  color: var(--text-h, #08060d);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.btnText {
+  font-size: 0.875rem;
+  padding: 0.375rem 0.375rem;
+  background-color: transparent;
+  color: var(--accent);
+  text-decoration: underline;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--accent-800, #8e0318);
+  }
+}
+
+.button:hover {
+  background-color: var(--btn-hover-color);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent, #ff736f);
+  outline-offset: 2px;
+}
+
+/* Selected state using data attribute */
+.button[data-selected='true'] {
+  background-color: var(--accent, #ff736f);
+  border-color: var(--accent, #ff736f);
+  color: #ffffff;
+}
+
+.button[data-selected='true']:hover {
+  background-color: var(--accent-700, #c90326);
+  border-color: var(--accent-700, #c90326);
+  color: #ffffff;
+}
