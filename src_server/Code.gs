@@ -9,7 +9,9 @@ function doGet() {
 function getInitialData() {
   const config = getConfiguration();
 
-  const calendarIds = config.schools.map((school) => school.calendarId);
+  const calendarIds = [
+    ...new Set(config.schools.map((school) => school.calendarId)),
+  ];
   const startTime = new Date();
   const endTime = new Date();
   endTime.setMonth(endTime.getMonth() + 6); // Fetch events for the next 6 months
