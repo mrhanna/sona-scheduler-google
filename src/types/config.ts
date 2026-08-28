@@ -1,6 +1,7 @@
 export interface School {
   name: string;
   calendarId: string;
+  classes: Class[];
 }
 
 export interface Mentor {
@@ -9,7 +10,6 @@ export interface Mentor {
 }
 
 export interface Class {
-  school: string;
   name: string;
   start: string;
   end: string;
@@ -21,5 +21,12 @@ export interface Config {
   schools: School[];
   mentors: Mentor[];
   instruments: string[];
-  classes: Class[];
+}
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  startTime: string;
+  endTime: string;
+  isAllDay: boolean;
 }

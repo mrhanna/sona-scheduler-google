@@ -1,9 +1,9 @@
-import { useCalendarInfoContext } from '../calendarInfo';
+import { useSchedulerContext } from '../state';
 import type { Class, Mentor, School } from '../types/config';
 
 export interface ClassCardProps {
-  school: School;
-  cls: Class;
+  school: Omit<School, 'classes'>;
+  cls: Class & { school: Omit<School, 'classes'> };
   mentor: Mentor;
   date: Date;
 }
@@ -60,12 +60,12 @@ function formatShortTime(date: Date): string {
 }
 
 const ClassCard = ({ school, cls, mentor, date }: ClassCardProps) => {
-  const { loading, calendarInfo } = useCalendarInfoContext();
+  const { calendars } = useSchedulerContext();
 
   const classStart = combineDateAndTime(date, cls.start);
   const classEnd = combineDateAndTime(date, cls.end);
 
-  const conflicts = calendarInfo[school.calendarId]?.filter((event) => {
+  const conflicts = calendars[school.calendarId]?.filter((event) => {
     const eventStart = new Date(event.startTime);
     const eventEnd = new Date(event.endTime);
 
@@ -86,7 +86,6 @@ const ClassCard = ({ school, cls, mentor, date }: ClassCardProps) => {
         </small>
       </div>
       <div className="book-container">
-        {loading && <span className="loader"></span>}
         {conflicts && conflicts.length > 0 && (
           <span className="conflict-warning">
             ⚠️ {conflicts.length} conflict
@@ -103,7 +102,7 @@ const ClassCard = ({ school, cls, mentor, date }: ClassCardProps) => {
             </ul>
           </span>
         )}
-        {!loading && (!conflicts || conflicts.length === 0) && (
+        {(!conflicts || conflicts.length === 0) && (
           <span className="no-conflict">No conflicts</span>
         )}
         <a

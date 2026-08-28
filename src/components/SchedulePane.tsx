@@ -1,32 +1,26 @@
 import { useMemo } from 'react';
-import type { Config, Mentor, School } from '../types/config';
+import type { Class, Mentor, School } from '../types/config';
 import ClassCard from './ClassCard';
 import type { DateRange } from '@daypicker/react';
 import '@daypicker/react/style.css';
+import { useSchedulerContext } from '../state';
+import { MultiToggleSelect } from './MultiToggleSelect';
 
-export interface SchedulePaneProps {
-  config: Config;
-  mentor: string;
-  schools: string[];
-  instruments: string[];
-  dateRange: DateRange;
-}
+const SchedulePane = () => {
+  const { config, options } = useSchedulerContext();
+  if (!config) return null;
 
-const SchedulePane = ({
-  config,
-  mentor,
-  schools,
-  instruments,
-  dateRange,
-}: SchedulePaneProps) => {
-  // Flatpickr range mode returns "YYYY-MM-DD to YYYY-MM-DD" (or single "YYYY-MM-DD")
-  const dates = dateRangeToDates(dateRange);
-  const schoolMap = useMemo(() => {
-    const schoolMap = new Map<string, School>(
-      config.schools.map((school) => [school.name, school]),
+  if (!options.mentor || !options.schools.length || !options.dates) {
+    return (
+      <>
+        {!options.mentor && <p>Please select a mentor.</p>}
+        {!options.schools.length && <p>Please select at least one school.</p>}
+        {!options.dates && <p>Please select a date range.</p>}
+      </>
     );
-    return schoolMap;
-  }, [config]);
+  }
+
+  const dates = dateRangeToDates(options.dates);
 
   const mentorMap = useMemo(() => {
     const mentorMap = new Map<string, Mentor>(
@@ -37,17 +31,20 @@ const SchedulePane = ({
 
   const dayGroups = dates
     .map((date) => {
-      const classesForDate = config.classes
-        .filter((cls) => {
-          return (
-            isClassMeeting(cls.recurrence, date) &&
-            schools.includes(cls.school) &&
-            (instruments.length === 0 ||
-              instruments.some((instrument) =>
-                cls.instruments.includes(instrument),
-              ))
-          );
-        })
+      const classesForDate = config.schools
+        .filter((school) => options.schools.includes(school.name))
+        .reduce(
+          (acc: (Class & { school: Omit<School, 'classes'> })[], school) => {
+            return acc.concat(
+              school.classes.map((cls) => ({
+                ...cls,
+                school: { calendarId: school.calendarId, name: school.name },
+              })),
+            );
+          },
+          [],
+        )
+        .filter((cls) => isClassMeeting(cls.recurrence, date))
         .sort((a, b) => a.start.localeCompare(b.start));
 
       if (!classesForDate || classesForDate.length === 0) return null;
@@ -58,10 +55,10 @@ const SchedulePane = ({
           <div className="day-group-cards">
             {classesForDate.map((cls) => (
               <ClassCard
-                key={`${cls.school}-${cls.name}-${date.toISOString()}`}
-                school={schoolMap.get(cls.school)!}
+                key={`${cls.school.name}-${cls.name}-${date.toISOString()}`}
+                school={cls.school}
                 cls={cls}
-                mentor={mentorMap.get(mentor)!}
+                mentor={mentorMap.get(options.mentor)!}
                 date={date}
               />
             ))}
@@ -71,15 +68,26 @@ const SchedulePane = ({
     })
     .filter((group) => group !== null);
 
-  console.log(dayGroups);
   return (
-    <div className="schedule-pane">
-      {!dayGroups || dayGroups.length === 0 ? (
-        <p>There were no classes found on the specified dates.</p>
-      ) : (
-        dayGroups
-      )}
-    </div>
+    <>
+      <MultiToggleSelect
+        options={config.instruments.map((instrument) => ({
+          value: instrument,
+          label: instrument,
+        }))}
+        value={options.instruments}
+        onChange={options.setInstruments}
+        label="Filter by instrument"
+        showClear
+      />
+      <div className="schedule-pane">
+        {!dayGroups || dayGroups.length === 0 ? (
+          <p>There were no classes found on the specified dates.</p>
+        ) : (
+          dayGroups
+        )}
+      </div>
+    </>
   );
 };
 

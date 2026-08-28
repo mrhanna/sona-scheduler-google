@@ -1,6 +1,6 @@
 import MOCK_CONFIG from './mock.json' with { type: 'json' };
 import MOCK_DATES_RAW from './mock-events.json' with { type: 'json' };
-import type { CalendarEvent } from '../calendarInfo';
+import type { CalendarEvent } from '../types/config';
 
 const MOCK_DATES = MOCK_DATES_RAW as Record<
   string,
@@ -33,25 +33,31 @@ export function runGasMethod<T>(
 
       // Simulate network delay (300ms)
       setTimeout(() => {
-        if (methodName === 'getConfiguration') {
-          resolve(MOCK_CONFIG as unknown as T);
-        } else if (methodName === 'getEventsForCalendars') {
-          resolve(
-            args[0].reduce(
-              (acc: Record<string, CalendarEvent[]>, k: string) => {
-                acc[k] =
-                  MOCK_DATES[k].map((event: Omit<CalendarEvent, 'id'>) => ({
-                    ...event,
-                    id: k,
-                  })) || [];
-                return acc;
-              },
-              {},
-            ) as unknown as T,
-          );
-        } else {
-          resolve({ status: 'success' } as unknown as T);
+        if (methodName === 'getInitialData') {
+          resolve({
+            config: MOCK_CONFIG,
+            calendars: MOCK_DATES,
+          } as unknown as T);
         }
+        // if (methodName === 'getConfiguration') {
+        //   resolve(MOCK_CONFIG as unknown as T);
+        // } else if (methodName === 'getEventsForCalendars') {
+        //   resolve(
+        //     args[0].reduce(
+        //       (acc: Record<string, CalendarEvent[]>, k: string) => {
+        //         acc[k] =
+        //           MOCK_DATES[k].map((event: Omit<CalendarEvent, 'id'>) => ({
+        //             ...event,
+        //             id: k,
+        //           })) || [];
+        //         return acc;
+        //       },
+        //       {},
+        //     ) as unknown as T,
+        //   );
+        // } else {
+        //   resolve({ status: 'success' } as unknown as T);
+        // }
       }, 2000);
       return;
     }

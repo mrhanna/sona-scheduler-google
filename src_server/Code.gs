@@ -6,6 +6,19 @@ function doGet() {
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
+function getInitialData() {
+  const config = getConfiguration();
+
+  const calendarIds = config.schools.map((school) => school.calendarId);
+  const startTime = new Date();
+  const endTime = new Date();
+  endTime.setMonth(endTime.getMonth() + 6); // Fetch events for the next 6 months
+
+  const calendars = getEventsForCalendars(calendarIds, startTime, endTime);
+
+  return { config, calendars };
+}
+
 function getConfiguration() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
 
@@ -14,27 +27,6 @@ function getConfiguration() {
 
   if (configurationSheet.getLastRow() < 2) return null;
   if (classesSheet.getLastRow() < 2) return null;
-
-  // Batch read configuration
-  const rawData = configurationSheet
-    .getRange(2, 1, configurationSheet.getLastRow() - 1, 5)
-    .getValues();
-
-  const schools = rawData
-    .filter((row) => !!row[0])
-    .map((row) => ({
-      name: row[0],
-      calendarId: row[1],
-    }));
-
-  const mentors = rawData
-    .filter((row) => !!row[2])
-    .map((row) => ({
-      name: row[2],
-      email: row[3],
-    }));
-
-  const instruments = rawData.map((row) => row[4]).filter((cell) => !!cell);
 
   // Batch read classes
   const classData = classesSheet
@@ -55,11 +47,32 @@ function getConfiguration() {
     instruments: row[5].split(',').map((name) => name.trim()),
   }));
 
+  // Batch read configuration
+  const rawData = configurationSheet
+    .getRange(2, 1, configurationSheet.getLastRow() - 1, 5)
+    .getValues();
+
+  const schools = rawData
+    .filter((row) => !!row[0])
+    .map((row) => ({
+      name: row[0],
+      calendarId: row[1],
+      classes: classes.filter((c) => c.school === row[0]),
+    }));
+
+  const mentors = rawData
+    .filter((row) => !!row[2])
+    .map((row) => ({
+      name: row[2],
+      email: row[3],
+    }));
+
+  const instruments = rawData.map((row) => row[4]).filter((cell) => !!cell);
+
   return {
     schools,
     mentors,
     instruments,
-    classes,
   };
 }
 
@@ -75,7 +88,7 @@ function test_getConfiguration() {
  * @param {string[]} calendarIds - The IDs of the target calendars (e.g., 'primary' or 'c_12345@group.calendar.google.com').
  * @param {Date|string} startTime - The start time (Date object or ISO string).
  * @param {Date|string} endTime - The end time (Date object or ISO string).
- * @returns {Array<Object>} Array of formatted event objects.
+ * @returns {Record<string, CalendarEvent[]>} where each key is a calendar ID and the value is an array of events for that calendar.
  */
 function getEventsForCalendars(calendarIds, startTime, endTime) {
   const start = new Date(startTime);
