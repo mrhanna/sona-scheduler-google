@@ -44,7 +44,14 @@ const SchedulePane = () => {
           },
           [],
         )
-        .filter((cls) => isClassMeeting(cls.recurrence, date))
+        .filter(
+          (cls) =>
+            isClassMeeting(cls.recurrence, date) &&
+            (options.instruments.length === 0 ||
+              options.instruments.some((instr) =>
+                cls.instruments.includes(instr),
+              )),
+        )
         .sort((a, b) => a.start.localeCompare(b.start));
 
       if (!classesForDate || classesForDate.length === 0) return null;
