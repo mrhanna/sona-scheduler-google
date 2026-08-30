@@ -36,15 +36,6 @@ const ClassCard = ({ school, cls, date }: ClassCardProps) => {
       }
     }
 
-    const classSchoolParenthetical =
-      cls.name.match(/\(([^)]+)\)/)?.[1] ||
-      school.name.match(/\(([^)]+)\)/)?.[1];
-
-    if (classSchoolParenthetical && !eventParenthetical) {
-      // if the class or school has a parenthetical, but the event doesn't, then it's not a conflict. It's not at the same location.
-      return false;
-    }
-
     const eventStart = new Date(event.startTime);
     const eventEnd = new Date(event.endTime);
 
