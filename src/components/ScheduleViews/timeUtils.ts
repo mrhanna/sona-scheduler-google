@@ -40,15 +40,10 @@ export function buildCalendarUrl(
   var startIso = toGCalISOString(combineDateAndTime(date, cls.start));
   var endIso = toGCalISOString(combineDateAndTime(date, cls.end));
 
-  const parenthetical =
-    !cls.name.match(/\([^)]+\)/) && cls.school.name.match(/\([^)]+\)/);
-
   var url =
     'https://calendar.google.com/calendar/render?action=TEMPLATE' +
     '&text=' +
-    encodeURIComponent(
-      `${mentor.name} - ${cls.name}${parenthetical ? ` ${parenthetical}` : ''}`,
-    ) +
+    encodeURIComponent(`${mentor.name} - ${cls.name} @ ${cls.school.name}`) +
     '&dates=' +
     startIso +
     '/' +
