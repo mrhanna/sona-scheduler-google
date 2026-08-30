@@ -1,5 +1,5 @@
 import './App.css';
-import SchedulePane from './components/SchedulePane';
+import SchedulePane from './components/ScheduleViews/GridView/SchedulePane';
 import { DayPicker } from 'react-day-picker';
 import { MultiToggleSelect } from './components/MultiToggleSelect';
 import { useSchedulerContext } from './state';
