@@ -17,6 +17,8 @@ const useSchedulerState = () => {
   const [instruments, setInstruments] = useState<string[]>([]);
   const [dates, setDates] = useState<DateRange | undefined>();
 
+  const [parentheticals, setParentheticals] = useState<string[]>([]);
+
   const [calendars, setCalendars] = useState<Record<string, CalendarEvent[]>>(
     {},
   );
@@ -30,6 +32,26 @@ const useSchedulerState = () => {
         }>('getInitialData');
         setConfig(result.config);
         setCalendars(result.calendars);
+        setParentheticals([
+          ...new Set(
+            result.config.schools.reduce((acc: string[], school: School) => {
+              const parenthetical = school.name.match(/\(([^)]+)\)/)?.[1];
+
+              if (parenthetical) {
+                acc.push(parenthetical);
+              }
+
+              school.classes.forEach((cls: Class) => {
+                const classParenthetical = cls.name.match(/\(([^)]+)\)/)?.[1];
+                if (classParenthetical) {
+                  acc.push(classParenthetical);
+                }
+              });
+
+              return acc;
+            }, []),
+          ),
+        ]);
       } catch (error) {
         console.error('Error fetching configuration:', error);
       }
@@ -53,6 +75,7 @@ const useSchedulerState = () => {
     },
     calendars,
     setCalendars,
+    parentheticals,
   };
 };
 

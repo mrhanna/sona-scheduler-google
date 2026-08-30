@@ -14,7 +14,7 @@ export interface ClassCardProps {
 }
 
 const ClassCard = ({ school, cls, date }: ClassCardProps) => {
-  const { calendars } = useSchedulerContext();
+  const { calendars, parentheticals } = useSchedulerContext();
 
   const mentor = useSelectedMentor();
   if (!mentor) return null;
@@ -23,6 +23,28 @@ const ClassCard = ({ school, cls, date }: ClassCardProps) => {
   const classEnd = combineDateAndTime(date, cls.end);
 
   const conflicts = calendars[school.calendarId]?.filter((event) => {
+    //parenthetical check
+    const eventParenthetical = event.title.match(/\(([^)]+)\)/)?.[1];
+
+    if (eventParenthetical && parentheticals.includes(eventParenthetical)) {
+      // if the class or school name doesn't include the parenthetical, then it's not a conflict. It's not at the same location.
+      if (
+        !cls.name.includes(`(${eventParenthetical})`) &&
+        !school.name.includes(`(${eventParenthetical})`)
+      ) {
+        return false;
+      }
+    }
+
+    const classSchoolParenthetical =
+      cls.name.match(/\(([^)]+)\)/)?.[1] ||
+      school.name.match(/\(([^)]+)\)/)?.[1];
+
+    if (classSchoolParenthetical && !eventParenthetical) {
+      // if the class or school has a parenthetical, but the event doesn't, then it's not a conflict. It's not at the same location.
+      return false;
+    }
+
     const eventStart = new Date(event.startTime);
     const eventEnd = new Date(event.endTime);
 

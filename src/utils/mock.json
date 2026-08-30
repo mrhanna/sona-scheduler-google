@@ -125,18 +125,18 @@
       ]
     },
     {
-      "name": "Harmony Junior High",
+      "name": "Harmony",
       "calendarId": "3",
       "classes": [
         {
-          "name": "7th Grade Flute & Oboe Masterclass",
+          "name": "7th Grade Flute & Oboe Masterclass (Altered)",
           "start": "08:15",
           "end": "09:00",
           "recurrence": "TR",
           "instruments": ["flute", "oboe"]
         },
         {
-          "name": "JH Concert Band",
+          "name": "JH Concert Band (Altered)",
           "start": "10:00",
           "end": "10:55",
           "recurrence": "MTWRF",
@@ -154,14 +154,53 @@
           ]
         },
         {
-          "name": "JH Trumpet & Horn Sectional",
+          "name": "JH Trumpet & Horn Sectional (Altered)",
           "start": "11:45",
           "end": "12:30",
           "recurrence": "MW",
           "instruments": ["trumpet", "horn"]
         },
         {
-          "name": "Junior Saxophone Choir",
+          "name": "Junior Saxophone Choir (Altered)",
+          "start": "14:00",
+          "end": "14:50",
+          "recurrence": "F",
+          "instruments": ["saxophone"]
+        },
+        {
+          "name": "7th Grade Flute & Oboe Masterclass (Major)",
+          "start": "08:15",
+          "end": "09:00",
+          "recurrence": "TR",
+          "instruments": ["flute", "oboe"]
+        },
+        {
+          "name": "JH Concert Band (Major)",
+          "start": "10:00",
+          "end": "10:55",
+          "recurrence": "MTWRF",
+          "instruments": [
+            "saxophone",
+            "flute",
+            "oboe",
+            "bassoon",
+            "clarinet",
+            "trumpet",
+            "trombone",
+            "horn",
+            "tuba",
+            "percussion"
+          ]
+        },
+        {
+          "name": "JH Trumpet & Horn Sectional (Major)",
+          "start": "11:45",
+          "end": "12:30",
+          "recurrence": "MW",
+          "instruments": ["trumpet", "horn"]
+        },
+        {
+          "name": "Junior Saxophone Choir (Major)",
           "start": "14:00",
           "end": "14:50",
           "recurrence": "F",
@@ -204,11 +243,10 @@
       ]
     },
     {
-      "name": "Rondo Intermediate School",
+      "name": "Rondo (Intermediate)",
       "calendarId": "5",
       "classes": [
         {
-          "school": "Rondo Intermediate School",
           "name": "5th Grade Starter Band",
           "start": "08:30",
           "end": "09:15",
@@ -223,7 +261,6 @@
           ]
         },
         {
-          "school": "Rondo Intermediate School",
           "name": "Double Reed Workshop",
           "start": "10:30",
           "end": "11:15",
@@ -231,7 +268,6 @@
           "instruments": ["oboe", "bassoon"]
         },
         {
-          "school": "Rondo Intermediate School",
           "name": "Intermediate Brass",
           "start": "13:00",
           "end": "13:45",
@@ -239,8 +275,48 @@
           "instruments": ["trumpet", "trombone", "horn", "tuba"]
         },
         {
-          "school": "Rondo Intermediate School",
           "name": "Intermediate Woodwinds",
+          "start": "14:15",
+          "end": "15:00",
+          "recurrence": "MWF",
+          "instruments": ["saxophone", "flute", "oboe", "bassoon", "clarinet"]
+        }
+      ]
+    },
+    {
+      "name": "Rondo (HS)",
+      "calendarId": "5",
+      "classes": [
+        {
+          "name": "HS Band",
+          "start": "08:30",
+          "end": "09:15",
+          "recurrence": "MWF",
+          "instruments": [
+            "saxophone",
+            "flute",
+            "clarinet",
+            "trumpet",
+            "trombone",
+            "percussion"
+          ]
+        },
+        {
+          "name": "Double Reed Mastery",
+          "start": "10:30",
+          "end": "11:15",
+          "recurrence": "TR",
+          "instruments": ["oboe", "bassoon"]
+        },
+        {
+          "name": "Pro Brass",
+          "start": "13:00",
+          "end": "13:45",
+          "recurrence": "TR",
+          "instruments": ["trumpet", "trombone", "horn", "tuba"]
+        },
+        {
+          "name": "Pro Woodwinds",
           "start": "14:15",
           "end": "15:00",
           "recurrence": "MWF",

@@ -1,8 +1,8 @@
 import './App.css';
-import SchedulePane from './components/ScheduleViews/GridView/SchedulePane';
 import { DayPicker } from 'react-day-picker';
 import { MultiToggleSelect } from './components/MultiToggleSelect';
 import { useSchedulerContext } from './state';
+import ScheduleView from './components/ScheduleViews/ScheduleView';
 
 function App() {
   const { config, options } = useSchedulerContext();
@@ -62,7 +62,7 @@ function App() {
             />
           </div>
           <div className="schedule-area">
-            <SchedulePane />
+            <ScheduleView />
           </div>
         </div>
       )}

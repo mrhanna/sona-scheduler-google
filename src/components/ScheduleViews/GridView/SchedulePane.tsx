@@ -4,21 +4,10 @@ import {
   useSchedulerContext,
   useSelectedClassesForDates,
 } from '../../../state';
-import { MultiToggleSelect } from '../../MultiToggleSelect';
 
 const SchedulePane = () => {
-  const { config, options } = useSchedulerContext();
+  const { config } = useSchedulerContext();
   if (!config) return null;
-
-  if (!options.mentor || !options.schools.length || !options.dates) {
-    return (
-      <>
-        {!options.mentor && <p>Please select a mentor.</p>}
-        {!options.schools.length && <p>Please select at least one school.</p>}
-        {!options.dates && <p>Please select a date range.</p>}
-      </>
-    );
-  }
 
   const dayGroups = useSelectedClassesForDates().map(({ date, classes }) => {
     return (
@@ -39,25 +28,13 @@ const SchedulePane = () => {
   });
 
   return (
-    <>
-      <MultiToggleSelect
-        options={config.instruments.map((instrument) => ({
-          value: instrument,
-          label: instrument,
-        }))}
-        value={options.instruments}
-        onChange={options.setInstruments}
-        label="Filter by instrument"
-        showClear
-      />
-      <div className="schedule-pane">
-        {!dayGroups || dayGroups.length === 0 ? (
-          <p>There were no classes found on the specified dates.</p>
-        ) : (
-          dayGroups
-        )}
-      </div>
-    </>
+    <div className="schedule-pane">
+      {!dayGroups || dayGroups.length === 0 ? (
+        <p>There were no classes found on the specified dates.</p>
+      ) : (
+        dayGroups
+      )}
+    </div>
   );
 };
 

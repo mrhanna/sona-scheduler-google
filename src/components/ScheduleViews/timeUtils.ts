@@ -1,4 +1,4 @@
-import type { Class, Mentor } from '../../types/config';
+import type { Class, Mentor, School } from '../../types/config';
 
 export function combineDateAndTime(date: Date, timeString: string): Date {
   const pad = (n: number) => String(n).padStart(2, '0');
@@ -33,17 +33,22 @@ export function toGCalISOString(date: Date) {
  */
 export function buildCalendarUrl(
   mentor: Mentor,
-  cls: Class,
+  cls: Class & { school: Omit<School, 'classes'> },
   date: Date,
   calendarId: string,
 ) {
   var startIso = toGCalISOString(combineDateAndTime(date, cls.start));
   var endIso = toGCalISOString(combineDateAndTime(date, cls.end));
 
+  const parenthetical =
+    !cls.name.match(/\([^)]+\)/) && cls.school.name.match(/\([^)]+\)/);
+
   var url =
     'https://calendar.google.com/calendar/render?action=TEMPLATE' +
     '&text=' +
-    encodeURIComponent(`${mentor.name} - ${cls.name}`) +
+    encodeURIComponent(
+      `${mentor.name} - ${cls.name}${parenthetical ? ` ${parenthetical}` : ''}`,
+    ) +
     '&dates=' +
     startIso +
     '/' +
