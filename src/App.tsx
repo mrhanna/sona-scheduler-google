@@ -1,4 +1,3 @@
-import './App.css';
 import { DayPicker } from 'react-day-picker';
 import { MultiToggleSelect } from './components/MultiToggleSelect';
 import { useSchedulerContext } from './state';

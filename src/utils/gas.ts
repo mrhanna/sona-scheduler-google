@@ -7,6 +7,30 @@ const MOCK_DATES = MOCK_DATES_RAW as Record<
   Omit<CalendarEvent, 'id'>[]
 >;
 
+// Adjust mock events to be in the future, relative to the current date
+const now = new Date();
+for (const events of Object.values(MOCK_DATES)) {
+  for (const event of events) {
+    const origStart = new Date(event.startTime);
+    const origEnd = new Date(event.endTime);
+    const durationMs = origEnd.getTime() - origStart.getTime();
+
+    const daysAhead = (origStart.getDay() - now.getDay() + 7) % 7;
+
+    const targetStart = new Date(now);
+    targetStart.setDate(now.getDate() + daysAhead);
+    targetStart.setHours(
+      origStart.getHours(),
+      origStart.getMinutes(),
+      origStart.getSeconds(),
+      0,
+    );
+
+    event.startTime = targetStart.toISOString();
+    event.endTime = new Date(targetStart.getTime() + durationMs).toISOString();
+  }
+}
+
 declare const google: {
   script: {
     run: {
@@ -38,26 +62,9 @@ export function runGasMethod<T>(
             config: MOCK_CONFIG,
             calendars: MOCK_DATES,
           } as unknown as T);
+        } else {
+          resolve({ status: 'success' } as unknown as T);
         }
-        // if (methodName === 'getConfiguration') {
-        //   resolve(MOCK_CONFIG as unknown as T);
-        // } else if (methodName === 'getEventsForCalendars') {
-        //   resolve(
-        //     args[0].reduce(
-        //       (acc: Record<string, CalendarEvent[]>, k: string) => {
-        //         acc[k] =
-        //           MOCK_DATES[k].map((event: Omit<CalendarEvent, 'id'>) => ({
-        //             ...event,
-        //             id: k,
-        //           })) || [];
-        //         return acc;
-        //       },
-        //       {},
-        //     ) as unknown as T,
-        //   );
-        // } else {
-        //   resolve({ status: 'success' } as unknown as T);
-        // }
       }, 2000);
       return;
     }
