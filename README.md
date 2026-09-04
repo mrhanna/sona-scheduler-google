@@ -4,6 +4,8 @@ A lightweight React and TypeScript web application backed by Google Apps Script 
 
 The app streamlines visit scheduling for teaching mentors by solving two primary friction points: navigating complex, non-standard school block schedules, and eliminating personal calendar clutter caused by shared Google Calendars.
 
+**Live Demo (with mock data):** [mrhanna.dev/demos/sona-scheduler](https://mrhanna.dev/demos/sona-scheduler/)
+
 ---
 
 ## The Problem
